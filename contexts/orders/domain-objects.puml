@@ -1,0 +1,24 @@
+@startuml
+!include ddd-style.puml
+
+package "BC Заказы (Orders)" as OrdersContext {
+
+    rectangle DomainObjects {
+        class Order as "Заказ\nOrder" <<AggregateRootEntity>> {
+            id: uuid
+            clientId: uuid
+            create_date: date
+            complete_date: date?
+            cancel_date: date?
+        }
+
+        class OrderPosition as "Позиция заказа\nOrderPosition" <<ValueObject>> {
+            productId: guid
+            count: int
+        }
+    }
+}
+
+OrderPosition }|--|| Order
+
+@enduml

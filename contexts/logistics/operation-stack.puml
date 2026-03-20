@@ -1,0 +1,36 @@
+@startuml
+!include ddd-style.puml
+
+package "BC Logistics (Логистика)" as LogisticsContext {
+    
+    rectangle OperationStack {
+
+        class "ReserveStock\nЗарезервировать товар" as ReserveStock <<CommandOperation>> $ReserveStock {
+            1. принять на вход: location_id, product_id, count, start_date
+            2. загрузить целевой Stock по location_id + product_id
+            3. проверить инвариант: on_hand + planned > reserved
+            4. если инвариант нарушен, то вернуть out_of_stock
+            5. создать и сохранить объект типа StockReservation
+            6. создать StockState с типом reserved
+            7. сохранить измененнный Stock
+            8. вернуть reserved
+        }
+
+        class "PlanStockTransfer\nЗапланировать перемещение товара" as PlanStockTransfer <<CommandOperation>> $PlanStockTransfer {
+            1. принять на вход: location_id, product_id, count
+            2. найти ближайший Location с нужным количеством целевого товара
+            3. исходя из расстояния до целевого Location оценить длительность перемещения
+            4. создать и сохранить StockMovement типа outbound
+            5. создать и сохранить StockMovement типа inbound
+            6. добавить StockState c типом planned для исходящего Stock
+            7. добавить StockState c типом planned для входящего Stock
+            8. сохранить исходящий и входящий Stock
+        }
+
+        ReserveStock -[hidden]down- PlanStockTransfer        
+    }
+}
+
+hide members
+
+@enduml

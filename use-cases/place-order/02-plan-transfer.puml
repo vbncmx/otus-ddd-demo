@@ -1,0 +1,20 @@
+@startuml
+
+!include ddd-style.puml
+!include use-cases/place-order/use-case.puml
+!include contexts/logistics/operation-stack.puml
+!include contexts/logistics/domain-objects.puml
+!include contexts/logistics/plan-stock-transfer-links.puml
+
+PlanTransferStep ..> PlanStockTransfer
+
+remove $ReserveStock
+remove $StockReservation
+hide <<ValueObject>> members
+hide <<AggregateRootEntity>> members
+' hide <<CommandOperation>> members
+PlanStockTransfer -[hidden]left- Location
+
+PlanTransferStep <<SelectedUseCaseStep>>
+
+@enduml

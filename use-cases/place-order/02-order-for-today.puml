@@ -1,0 +1,19 @@
+@startuml
+
+!include ddd-style.puml
+!include use-cases/place-order/use-case.puml
+!include contexts/orders/operation-stack.puml
+!include contexts/orders/domain-objects.puml
+!include contexts/orders/create-order-links.puml
+
+OrderForTodayStep .up.> CreateOrder
+Order -[hidden]right- OrderPosition
+OrderPosition -[hidden]down- CreateOrder
+OrdersContext.DomainObjects .[hidden]down. OrdersContext.OperationStack
+
+hide <<ValueObject>> members
+hide <<AggregateRootEntity>> members
+
+OrderForTodayStep <<SelectedUseCaseStep>>
+
+@enduml

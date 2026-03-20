@@ -1,0 +1,17 @@
+@startuml
+!include ddd-style.puml
+
+package "BC Заказы (Orders)" as OrdersContext {    
+
+    rectangle OperationStack {
+
+        class "CreateOrder\nСоздать заказ" as CreateOrder  <<CommandOperation>> $CreateOrder {
+            1. принять на вход: информацию о заказе + позиции заказа
+            2. создать заказ и сохранить
+            3. вернуть объект заказа
+        }
+
+    }
+}
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+
+!include ddd-style.puml
+!include use-cases/place-order/use-case.puml
+!include contexts/logistics/operation-stack.puml
+!include contexts/logistics/domain-objects.puml
+!include contexts/logistics/reserve-stock-links.puml
+
+ReserveAfterTransferStep ..> ReserveStock
+ReserveStock -[hidden]left-> StockReservation
+
+remove $PlanStockTransfer
+remove $Location
+remove $StockMovement
+hide <<ValueObject>> members
+hide <<AggregateRootEntity>> members
+
+ReserveAfterTransferStep <<SelectedUseCaseStep>>
+
+@enduml
+

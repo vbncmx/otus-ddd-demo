@@ -1,0 +1,47 @@
+skinparam class {
+    BorderColor #555555
+
+    BackgroundColor<<AggregateRootEntity>> #D5E8D4
+    BorderColor<<AggregateRootEntity>> #82B366
+
+    BackgroundColor<<ValueObject>> #DAE8FC
+    BorderColor<<ValueObject>> #6C8EBF
+
+    BackgroundColor<<CommandOperation>> #FFE6CC
+    BorderColor<<CommandOperation>> #D79B00
+
+    BackgroundColor<<QueryOperation>> #FFF2CC
+    BorderColor<<QueryOperation>> #D6B656
+
+    BackgroundColor<<UseCaseStep>> #F5F5F5
+    BorderColor<<UseCaseStep>> #666666
+
+    BackgroundColor<<SelectedUseCaseStep>> #FAD9D5
+    BorderColor<<SelectedUseCaseStep>> #AE4132
+
+    BackgroundColor<<ContextHeader>> transparent
+    BorderColor<<ContextHeader>> transparent
+    FontSize<<ContextHeader>> 14
+    FontStyle<<ContextHeader>> bold
+}
+skinparam minClassWidth 150
+skinparam ranksep 30
+skinparam ArrowColor #555555
+skinparam classArrowColor #555555
+skinparam rectangle {
+  BorderStyle dashed
+  BorderColor #333333
+}
+
+!$commandLink = "#D79B00"
+!$queryLink = "#D6B656"
+
+hide <<ValueObject>> stereotype
+hide <<AggregateRootEntity>> stereotype
+hide <<CommandOperation>> stereotype
+hide <<QueryOperation>> stereotype
+hide <<UseCaseStep>> stereotype
+hide <<SelectedUseCaseStep>> stereotype
+hide <<UseCaseStep>> members
+hide <<SelectedUseCaseStep>> members
+hide circle

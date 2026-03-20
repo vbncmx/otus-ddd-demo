@@ -1,0 +1,20 @@
+@startuml
+
+!include ddd-style.puml
+!include use-cases/place-order/use-case.puml
+!include contexts/orders/operation-stack.puml
+!include contexts/orders/domain-objects.puml
+!include contexts/orders/create-order-links.puml
+
+OrderAfterTransferStep .down.> CreateOrder
+Order -[hidden]right- OrderPosition
+OrderPosition -[hidden]down- CreateOrder
+
+
+hide <<ValueObject>> members
+hide <<AggregateRootEntity>> members
+
+OrderAfterTransferStep <<SelectedUseCaseStep>>
+
+@enduml
+

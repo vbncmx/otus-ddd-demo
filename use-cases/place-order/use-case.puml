@@ -1,0 +1,20 @@
+@startuml
+!include ddd-style.puml
+
+
+package "UC PlaceOrder (Размещение заказа)" as PlaceOrderUseCase {
+    class "01. ReserveForToday\n\nЗарезервировать целевой товар\n в заданной локации сегодня" as ReserveForTodayStep <<UseCaseStep>>
+    class "02. OrderForToday\n\nСоздать заказ\nс выдачей целевого товара\n в заданной локации сегодня" as OrderForTodayStep <<UseCaseStep>>
+    class "02. PlanTransfer\n\nЗапланировать\nперемещение целевого товара\n в заданную локацию" as PlanTransferStep <<UseCaseStep>>
+    class "03. ReserveAfterTransfer\n\nЗарезервировать целевой товар\n в заданной локации\n после перемещения" as ReserveAfterTransferStep <<UseCaseStep>>
+    class "04. OrderAfterTransfer\n\nСоздать заказ\n c выдачей целевого товара\n после перемещения" as OrderAfterTransferStep <<UseCaseStep>>
+    
+    ReserveForTodayStep -right-> PlanTransferStep  : if out of stock\n если нет в наличии
+    PlanTransferStep -right-> ReserveAfterTransferStep
+    ReserveAfterTransferStep -right-> OrderAfterTransferStep
+    ReserveForTodayStep -up-> OrderForTodayStep : if reserved fine\n если зарезервировано успешно
+}
+
+
+
+@enduml

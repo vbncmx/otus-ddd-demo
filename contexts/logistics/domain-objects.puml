@@ -1,0 +1,57 @@
+@startuml
+!include ddd-style.puml
+
+package "BC Logistics (Логистика)" as LogisticsContext {
+    
+    rectangle DomainObjects {
+
+        class "Location\nЛокация" as Location <<AggregateRootEntity>> $Location {
+            id: uuid
+            title: text            
+            longitude: int
+            latitude: int
+        }
+
+        class "StockMovement\nПеремещение товара" as StockMovement <<AggregateRootEntity>> $StockMovement {
+            id: uuid
+            locationId: uuid
+            product_id: uuid
+            type: inbound / outbound
+            count: int            
+            register_date: date
+            confirm_date: date?
+            cancel_date: date?
+        }
+
+        class "StockReservation\nРезервирование товара" as StockReservation <<AggregateRootEntity>> $StockReservation {
+            id: uuid
+            locationId: uuid
+            product_id: uuid
+            count: int
+            order_id: uuid
+            start_date: date
+            end_date: date
+            cancel_date: date?
+        }
+
+        class "Stock\nЗапас товара" as Stock <<AggregateRootEntity>> $Stock {
+            productId: uuid
+            locationId: uuid
+        }
+
+        class "StockState\nСостояние запаса товара" as StockState <<ValueObject>> $StockState {
+            start_date: date
+            type: on_hand / planned / reserved
+            count: int
+        }
+
+        Location }|-down-|{ Stock
+        Stock ||-down-|{ StockState
+        StockMovement }|-left-|| Location
+        StockReservation }|-down-|| Location
+        StockMovement }|--|| Stock
+        StockReservation }|--|| Stock
+    }
+}
+
+@enduml

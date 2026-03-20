@@ -1,0 +1,9 @@
+@startuml
+!include ddd-style.puml
+
+package "BC Заказы (Orders)" as OrdersContext {
+    CreateOrder -[$commandLink]-> Order
+    CreateOrder -[$commandLink]-> OrderPosition
+}
+
+@enduml
