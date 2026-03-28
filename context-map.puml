@@ -2,9 +2,12 @@
 hide members
 !include contexts/orders/domain-objects.puml
 !include contexts/orders/operation-stack.puml
+!include contexts/orders/cancel-order-links.puml
 !include contexts/logistics/domain-objects.puml
 !include contexts/logistics/operation-stack.puml
 !include contexts/logistics/plan-stock-transfer-links.puml
+!include contexts/logistics/release-stock-reservation-links.puml
+!include contexts/logistics/cancel-planned-stock-transfer-links.puml
 
 StockReservation }|-up-|| Order
 OrderPosition -[hidden]down- Order

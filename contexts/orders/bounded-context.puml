@@ -3,5 +3,6 @@
 !include contexts/orders/domain-objects.puml
 !include contexts/orders/operation-stack.puml
 !include contexts/orders/create-order-links.puml
+!include contexts/orders/cancel-order-links.puml
 
 @enduml

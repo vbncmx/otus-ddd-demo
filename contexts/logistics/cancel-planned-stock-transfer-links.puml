@@ -1,0 +1,11 @@
+@startuml
+!include ddd-style.puml
+
+package "BC Logistics (Логистика)" as LogisticsContext {
+    CancelPlannedStockTransfer -[$commandLink]-> StockMovement
+    CancelPlannedStockTransfer -[$commandLink]-> Stock
+    CancelPlannedStockTransfer -[$commandLink]-> StockState
+    CancelPlannedStockTransfer -[$commandLink]-> Location
+}
+
+@enduml

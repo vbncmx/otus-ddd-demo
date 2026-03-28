@@ -1,0 +1,8 @@
+@startuml
+!include ddd-style.puml
+
+package "BC Заказы (Orders)" as OrdersContext {
+    CancelOrder -[$commandLink]-> Order
+}
+
+@enduml

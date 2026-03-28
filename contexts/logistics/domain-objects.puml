@@ -16,6 +16,7 @@ package "BC Logistics (Логистика)" as LogisticsContext {
             id: uuid
             locationId: uuid
             product_id: uuid
+            order_id: uuid?
             type: inbound / outbound
             count: int            
             register_date: date

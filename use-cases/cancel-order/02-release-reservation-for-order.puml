@@ -1,0 +1,19 @@
+@startuml
+
+!include ddd-style.puml
+!include use-cases/cancel-order/use-case.puml
+!include contexts/logistics/operation-stack.puml
+!include contexts/logistics/domain-objects.puml
+!include contexts/logistics/release-stock-reservation-links.puml
+
+ReleaseReservationStep ..> ReleaseStockReservation
+
+remove $ReserveStock
+remove $PlanStockTransfer
+remove $CancelPlannedStockTransfer
+hide <<ValueObject>> members
+hide <<AggregateRootEntity>> members
+
+ReleaseReservationStep <<SelectedUseCaseStep>>
+
+@enduml

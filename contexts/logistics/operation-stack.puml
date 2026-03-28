@@ -12,25 +12,43 @@ package "BC Logistics (Логистика)" as LogisticsContext {
             4. если инвариант нарушен, то вернуть out_of_stock
             5. создать и сохранить объект типа StockReservation
             6. создать StockState с типом reserved
-            7. сохранить измененнный Stock
+            7. сохранить изменённый Stock
             8. вернуть reserved
         }
 
         class "PlanStockTransfer\nЗапланировать перемещение товара" as PlanStockTransfer <<CommandOperation>> $PlanStockTransfer {
-            1. принять на вход: location_id, product_id, count
+            1. принять на вход: location_id, product_id, count, order_id
             2. найти ближайший Location с нужным количеством целевого товара
             3. исходя из расстояния до целевого Location оценить длительность перемещения
-            4. создать и сохранить StockMovement типа outbound
-            5. создать и сохранить StockMovement типа inbound
+            4. создать и сохранить StockMovement типа outbound и при наличии order_id записать его в движение
+            5. создать и сохранить StockMovement типа inbound и при наличии order_id записать его в движение
             6. добавить StockState c типом planned для исходящего Stock
             7. добавить StockState c типом planned для входящего Stock
             8. сохранить исходящий и входящий Stock
         }
 
-        ReserveStock -[hidden]down- PlanStockTransfer        
+        class "ReleaseStockReservation\nСнять резерв по заказу" as ReleaseStockReservation <<CommandOperation>> $ReleaseStockReservation {
+            1. принять на вход: order_id
+            2. найти активные StockReservation по order_id, у которых cancel_date не задана
+            3. для каждого резерва: проставить cancel_date
+            4. скорректировать Stock и StockState: уменьшить объём в состоянии reserved
+            5. сохранить изменённые Stock и резервы
+            6. вернуть результат
+        }
+
+        class "CancelPlannedStockTransfer\nОтменить запланированное перемещение по заказу" as CancelPlannedStockTransfer <<CommandOperation>> $CancelPlannedStockTransfer {
+            1. принять на вход: order_id
+            2. найти StockMovement по order_id без cancel_date
+            3. проставить cancel_date на найденных движениях
+            4. откатить StockState с типом planned на затронутых Stock
+            5. сохранить Stock и движения
+            6. вернуть результат
+        }
+
+        ReserveStock -[hidden]down- PlanStockTransfer
+        PlanStockTransfer -[hidden]down- ReleaseStockReservation
+        ReleaseStockReservation -[hidden]down- CancelPlannedStockTransfer
     }
 }
-
-hide members
 
 @enduml

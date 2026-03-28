@@ -1,0 +1,16 @@
+@startuml
+!include ddd-style.puml
+
+
+package "UC CancelOrder (Отмена заказа)" as CancelOrderUseCase {
+    class "01. CancelPlannedTransfer\n\nОтменить запланированное перемещение\n по заказу (при наличии)" as CancelPlannedTransferStep <<UseCaseStep>>
+    class "02. ReleaseReservation\n\nСнять резерв товара\n по заказу" as ReleaseReservationStep <<UseCaseStep>>
+    class "03. CancelOrder\n\nОтменить заказ" as CancelOrderStep <<UseCaseStep>>
+
+    CancelPlannedTransferStep -down-> ReleaseReservationStep
+    ReleaseReservationStep -down-> CancelOrderStep
+}
+
+
+
+@enduml

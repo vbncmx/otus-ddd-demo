@@ -1,0 +1,10 @@
+@startuml
+!include ddd-style.puml
+
+package "BC Logistics (Логистика)" as LogisticsContext {
+    ReleaseStockReservation -[$commandLink]-> Stock
+    ReleaseStockReservation -[$commandLink]-> StockReservation
+    ReleaseStockReservation -[$commandLink]-> StockState
+}
+
+@enduml

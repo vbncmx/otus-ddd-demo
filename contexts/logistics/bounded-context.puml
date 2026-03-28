@@ -4,5 +4,7 @@
 !include contexts/logistics/operation-stack.puml
 '!include contexts/logistics/reserve-stock-links.puml
 '!include contexts/logistics/plan-stock-transfer-links.puml
+'!include contexts/logistics/release-stock-reservation-links.puml
+'!include contexts/logistics/cancel-planned-stock-transfer-links.puml
 
 @enduml

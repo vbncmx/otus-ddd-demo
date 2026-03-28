@@ -11,6 +11,16 @@ package "BC Заказы (Orders)" as OrdersContext {
             3. вернуть объект заказа
         }
 
+        class "CancelOrder\nОтменить заказ" as CancelOrder <<CommandOperation>> $CancelOrder {
+            1. принять на вход: order_id, опционально client_id для проверки прав
+            2. загрузить Order
+            3. проверить инварианты: complete_date не задана, cancel_date не задана
+            4. проставить cancel_date, сохранить
+            5. вернуть объект заказа
+        }
+
+        CreateOrder -[hidden]down- CancelOrder
+
     }
 }
 
